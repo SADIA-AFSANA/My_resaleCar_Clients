@@ -1,0 +1,17 @@
+[
+    {
+        "name": "Toyota",
+        "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVgMWbBMrxS9BX8iHav75oO-9WGZMQaTRNig&usqp=CAU",
+        "Details": "You can get instant offers from sites Vroom and Kelley Blue Book, or a local dealer, but consider luxury specialists like I Buy Luxury Cars, or We Buy Exotics if the vehicle is worth more than $100,000"
+    },
+    {
+        "name": "Honda Pearl",
+        "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiGKeYt16tR0mpHK6Gi3n-VH-fC82__hshxQ&usqp=CAU",
+        "Details": "the main factors affecting a used vehicle's price are mileage and condition. Options, location, and color also playing a role. “As mileage increases, so does wear and tear,”"
+    },
+    {
+        "name": "Tata indigo",
+        "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbejJRaMAKsLZzPlbYhNXBPRUPX3xdZpcRCw&usqp=CAU",
+        "Details": "Buying and selling used cars can be an excellent way to add an extra source of income. Sure the initial investment may be a bit more than what most people may be comfortable with,."
+    }
+]
