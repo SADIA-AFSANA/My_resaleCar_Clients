@@ -1,11 +1,25 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../Contexts/AuthProvider';
 
 const Login = () => {
-    const { register, handleSubmit } = useForm()
+    const { signIn } = useContext(AuthContext);
+    const { register, handleSubmit } = useForm();
+    const [loginError, setLoginError] = useState('');
     const handleLogin = data => {
-        console.log(data)
+        console.log(data);
+        setLoginError('');
+        signIn(data.email, data.password)
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+            })
+            .catch(error => {
+                console.log(error.message)
+                setLoginError(error.message)
+
+            });
     }
 
     return (
@@ -29,9 +43,15 @@ const Login = () => {
                             <span className="label-text">Forget Password?</span>
                         </label>
                     </div>
+
                     <input className='btn btn-success' value="Login" type="submit" />
+                    <div>
+                        {
+                            loginError && <p>{loginError}</p>
+                        }
+                    </div>
                 </form>
-                <p>New to Account <Link className='btn btn-primary' to="signin">SIGN IN</Link></p>
+                <p>New to Account <Link className='btn btn-primary' to="/signup">SIGN Up</Link></p>
                 <div className='divider'>OR</div>
                 <button className='btn btn-secondary w-full'>CONTINUE WITH GOOGLE</button>
             </div>
