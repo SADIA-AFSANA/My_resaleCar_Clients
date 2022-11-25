@@ -1,12 +1,20 @@
+import { AuthErrorCodes } from 'firebase/auth';
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/AuthProvider';
+import toast, { Toaster } from 'react-hot-toast';
 
 const Login = () => {
     const { signIn } = useContext(AuthContext);
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm();
     const [loginError, setLoginError] = useState('');
+
+    const location = useLocation();
+    const navigate = useNavigate();
+
+    const from = location.state?.from?.pathname || '/';
+
     const handleLogin = data => {
         console.log(data);
         setLoginError('');
@@ -14,6 +22,8 @@ const Login = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user);
+                toast('user used correct emial')
+                navigate(from, { replace: true });
             })
             .catch(error => {
                 console.log(error.message)
@@ -32,13 +42,22 @@ const Login = () => {
                             <span className="label-text">Email</span>
 
                         </label>
-                        <input type="text" {...register("email")} className="input input-bordered w-full max-w-xs" />
+                        <input type="text" {...register("email",
+                            { required: true })} className="input input-bordered w-full max-w-xs" />
+                        {errors.email && <span className='text-red-600'>email is required</span>}
                     </div>
                     <div className="form-control w-full max-w-xs">
                         <label className="label">
                             <span className="label-text">Password</span>
                         </label>
-                        <input type="password" {...register("password")} className="input input-bordered w-full max-w-xs" />
+                        <input type="password" {...register("password",
+                            {
+                                required: 'password is required', minLength: {
+                                    value: 6, message: 'password length is must be 6 character'
+                                }
+
+                            })} className="input input-bordered w-full max-w-xs" />
+                        {errors.password && <span className='text-red-600'>{errors.password.message}</span>}
                         <label className="label">
                             <span className="label-text">Forget Password?</span>
                         </label>
