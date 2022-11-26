@@ -69,7 +69,7 @@ const SignUp = () => {
                             </label>
                             <input type="password" {...register("password", { required: 'Password is required', minLength: { value: 6, message: 'length should be 6 character.' } })} className="input input-bordered w-full max-w-xs" /></div>
                         <div className='form-control w-full my-3'>
-                            <select className='p-3 border' {...register("role")}>
+                            <select className='p-3 border rounded-2xl' {...register("role")}>
                                 <option value="buyer">Buyer</option>
                                 <option value="seller">Seller</option>
                             </select>

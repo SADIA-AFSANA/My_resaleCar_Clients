@@ -22,7 +22,7 @@ const Login = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user);
-                toast('user used correct emial')
+                toast('user used correct email')
                 navigate(from, { replace: true });
             })
             .catch(error => {
