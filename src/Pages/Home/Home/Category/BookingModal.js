@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
 import { AuthContext } from '../../../../Contexts/AuthProvider';
 
-const BookingModal = ({ car, setCar }) => {
+const BookingModal = ({ car, setCar, refetch }) => {
     const { name, sellerName, resalePrice, location, } = car;
     const { user } = useContext(AuthContext);
     const handleBooking = event => {
@@ -39,6 +39,7 @@ const BookingModal = ({ car, setCar }) => {
                 }
                 else {
                     toast.error(data.message);
+                    refetch();
                 }
             })
 

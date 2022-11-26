@@ -4,18 +4,22 @@ import PerProducts from './PerProducts';
 import {
     useQuery
 } from '@tanstack/react-query'
+import Loading from '../../../Shared/Loading/Loading';
 
 const Product = () => {
     // const [productsOptions, setProductsOptions] = useState([]);
     const [car, setCar] = useState(null)
-    const { data: productsOptions = [] } = useQuery({
+    const { data: productsOptions = [], refetch, isLoading } = useQuery({
         queryKey: ['productsOptions'],
         queryFn: async () => {
             const res = await fetch('http://localhost:5000/productsOptions')
             const data = await res.json();
             return data
         }
-    })
+    });
+    if (isLoading) {
+        return <Loading></Loading>
+    }
 
     // useEffect(() => {
     //     fetch('http://localhost:5000/productsOptions')
@@ -41,6 +45,8 @@ const Product = () => {
                 car && <BookingModal
                     car={car}
                     setCar={setCar}
+                    refetch={refetch}
+
                 ></BookingModal>}
         </div>
     );
