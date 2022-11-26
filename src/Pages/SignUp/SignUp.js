@@ -9,10 +9,11 @@ const SignUp = () => {
     const { register, handleSubmit } = useForm();
     const [signupError, setSignupError] = useState('');
 
+
     const navigate = useNavigate();
 
     const handleSignUp = data => {
-        console.log(data);
+
         setSignupError('');
         createUser(data.email, data.password)
             .then(result => {

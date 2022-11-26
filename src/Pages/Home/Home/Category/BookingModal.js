@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import toast from 'react-hot-toast';
+import { AuthContext } from '../../../../Contexts/AuthProvider';
 
 const BookingModal = ({ car, setCar }) => {
     const { name, sellerName, resalePrice, location, } = car;
-
+    const { user } = useContext(AuthContext);
     const handleBooking = event => {
         event.preventDefault();
         const form = event.target;
@@ -21,8 +23,25 @@ const BookingModal = ({ car, setCar }) => {
             phone,
             location
         }
-        console.log(booking);
-        setCar(null);
+        fetch('http://localhost:5000/bookings', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(booking)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (data.acknowledged) {
+                    setCar(null);
+                    toast.success('Booking done')
+                }
+                else {
+                    toast.error(data.message);
+                }
+            })
+
     }
 
     return (
@@ -36,8 +55,8 @@ const BookingModal = ({ car, setCar }) => {
                     <form onSubmit={handleBooking} className='grid grid-cols-1 gap-3 mt-6'>
                         <input name="sellerName" type="text" disabled value={sellerName} className="input input-bordered w-full " />
                         <input name="resalePrice" type="text" disabled value={resalePrice} className="input input-bordered w-full " />
-                        <input name="name" type="text" placeholder="Your name" className="input input-bordered w-full " />
-                        <input name="email" type="text" placeholder="Email Address" className="input input-bordered w-full " />
+                        <input name="name" type="text" defaultValue={user?.displayName} disabled placeholder="Your name" className="input input-bordered w-full " />
+                        <input name="email" type="text" defaultValue={user?.email} disabled placeholder="Email Address" className="input input-bordered w-full " />
                         <input name="phone" type="text" placeholder="Phone Number" className="input input-bordered w-full " />
                         <input name="location" type="text" placeholder="Meeting Location" className="input input-bordered w-full " />
                         <br />
