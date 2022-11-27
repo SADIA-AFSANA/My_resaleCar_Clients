@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
+import toast from 'react-hot-toast';
 import ConfirmationModal from '../../Shared/ConfirmationModal/ConfirmationModal';
 import Loading from '../../Shared/Loading/Loading';
 
@@ -10,11 +11,9 @@ const ManageProducts = () => {
     const closeModal = () => {
         setDeletingProduct(null);
     }
-    const handleDeleteProduct = product => {
-        console.log(product);
-    }
 
-    const { data: products, isLoading } = useQuery({
+
+    const { data: products, isLoading, refetch } = useQuery({
         queryKey: ['products'],
         queryFn: async () => {
             try {
@@ -30,7 +29,25 @@ const ManageProducts = () => {
 
             }
         }
-    })
+    });
+    const handleDeleteProduct = product => {
+        fetch(`http://localhost:5000/products/${product._id}`, {
+            method: 'DELETE',
+            headers: {
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+            }
+
+
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.deletedCount > 0) {
+                    refetch();
+                    toast.success('successfully delete')
+                }
+
+            })
+    }
 
     if (isLoading) {
         return <Loading></Loading>
