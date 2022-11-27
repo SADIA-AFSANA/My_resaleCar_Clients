@@ -5,6 +5,7 @@ const Category = () => {
     const [productsOptions, setProductsOptions] = useState([])
 
     useEffect(() => {
+        // fetch('productsOptions')
         fetch('http://localhost:5000/productsOptions')
             .then(res => res.json())
             .then(data => setProductsOptions(data))
