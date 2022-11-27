@@ -39,7 +39,8 @@ const MyBooking = () => {
                     <tbody>
 
                         {
-                            bookings.map((booking, i) =>
+                            bookings &&
+                            bookings?.map((booking, i) =>
                                 <tr key={bookings._id}>
                                     <th>{i + 1}</th>
                                     <td>{booking.sellerName}</td>
