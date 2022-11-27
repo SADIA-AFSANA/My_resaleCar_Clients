@@ -1,10 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import Loading from '../../Shared/Loading/Loading';
 
 const AddProduct = () => {
     const { register, handleSubmit } = useForm();
+    const imageHostKey = process.env.REACT_APP_imgbb_key;
+    // console.log(imageHostKey);
+    const navigate = useNavigate();
 
     const { data: specialties, isLoading } = useQuery({
         queryKey: ['specialty'],
@@ -16,7 +21,44 @@ const AddProduct = () => {
     })
 
     const handleAddProduct = data => {
-        console.log(data);
+
+        const image = data.image[0];
+        const formData = new FormData();
+        formData.append('image', image);
+        const url = `https://api.imgbb.com/1/upload?expiration=600&key=${imageHostKey}`
+
+        fetch(url, {
+            method: 'POST',
+            body: formData
+        })
+            .then(res => res.json())
+            .then(imgData => {
+                if (imgData.success) {
+                    console.log(imgData.data.url);
+                    const product = {
+                        name: data.name,
+                        email: data.email,
+                        specialty: data.specialty,
+                        image: imgData.data.url
+                    }
+                    fetch('http://localhost:5000/products', {
+                        method: 'POST',
+                        headers: {
+                            'content-type': 'application/json',
+                            authorization: `bearer ${localStorage.getItem('accessToken')}`
+                        },
+                        body: JSON.stringify(product)
+                    })
+                        .then(res => res.json())
+                        .then(result => {
+                            console.log(result);
+                            toast.success('add successfully');
+                            navigate('/dashboard/managedproduct')
+                        })
+                }
+
+            })
+
     }
     if (isLoading) {
         return <Loading></Loading>
@@ -61,7 +103,7 @@ const AddProduct = () => {
                         <span className="label-text text-bold">Photo</span>
 
                     </label>
-                    <input type="file" {...register("img", { required: true })} className="input input-bordered w-full max-w-xs" />
+                    <input type="file" {...register("image", { required: true })} className="input input-bordered w-full max-w-xs" />
                 </div>
 
                 <input className='btn btn-success py-3' value="Add Product" type="submit" />
