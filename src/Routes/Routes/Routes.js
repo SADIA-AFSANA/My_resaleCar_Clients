@@ -7,6 +7,7 @@ import AllUsers from "../../Pages/Dashboard/AllUsers/AllUsers";
 import Dashboard from "../../Pages/Dashboard/Dashboard";
 import ManageProducts from "../../Pages/Dashboard/ManageProducts/ManageProducts";
 import MyBooking from "../../Pages/Dashboard/MyBooking/MyBooking";
+import Payment from "../../Pages/Dashboard/Payment/Payment";
 import Product from "../../Pages/Home/Home/Category/Product";
 import Home from "../../Pages/Home/Home/Home"
 import Login from "../../Pages/Login/Login";
@@ -63,6 +64,11 @@ const router = createBrowserRouter([
             {
                 path: '/dashboard/managedproduct',
                 element: <AdminRoute><ManageProducts></ManageProducts></AdminRoute>
+            },
+            {
+                path: '/dashboard/payment/:id',
+                element: <AdminRoute><Payment></Payment></AdminRoute>,
+                loader: ({ params }) => fetch(`http://localhost:5000/bookings/${params.id}`)
             },
         ]
     },

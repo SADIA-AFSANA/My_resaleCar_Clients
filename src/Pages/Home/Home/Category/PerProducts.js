@@ -1,7 +1,7 @@
 import React from 'react';
 
 const PerProducts = ({ option, setCar }) => {
-    const { sellerName, yearUsed, posted, original, resalePrice, location, img, name, Details } = option;
+    const { price, sellerName, yearUsed, posted, original, resalePrice, location, img, name, Details } = option;
     return (
         <div>
             <div className="card card-side bg-base-100 shadow-xl">
@@ -12,6 +12,7 @@ const PerProducts = ({ option, setCar }) => {
                     <p>Location:{location}</p>
                     <p> Use:{yearUsed}Years</p>
                     <p>Post Date:{posted}</p>
+                    <p>{price}</p>
                     <p>Original Price:{original}</p>
                     <p>Resale Price:{resalePrice}</p>
                     <p> Details:{Details}</p>
