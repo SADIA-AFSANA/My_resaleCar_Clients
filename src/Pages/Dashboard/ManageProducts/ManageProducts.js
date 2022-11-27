@@ -1,9 +1,20 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import React, { useState } from 'react';
+import ConfirmationModal from '../../Shared/ConfirmationModal/ConfirmationModal';
+import Loading from '../../Shared/Loading/Loading';
 
 
 const ManageProducts = () => {
-    const { data: products, } = useQuery({
+    const [deletingProduct, setDeletingProduct] = useState(null);
+
+    const closeModal = () => {
+        setDeletingProduct(null);
+    }
+    const handleDeleteProduct = product => {
+        console.log(product);
+    }
+
+    const { data: products, isLoading } = useQuery({
         queryKey: ['products'],
         queryFn: async () => {
             try {
@@ -20,6 +31,11 @@ const ManageProducts = () => {
             }
         }
     })
+
+    if (isLoading) {
+        return <Loading></Loading>
+    }
+
     return (
         <div>
             <h2 className='text-3xl'>Manage product :{products?.length}</h2>
@@ -34,32 +50,50 @@ const ManageProducts = () => {
                             <th>price</th>
                             <th>Email</th>
                             <th>Specialty</th>
+                            <th>DELETE</th>
                         </tr>
                     </thead>
                     <tbody>
                         {
                             products.map((product, i) => <tr key={product._id}>
                                 <th>{i + 1}</th>
-                                <td></td>
+                                <td>
+                                    <div className="avatar">
+                                        <div className="w-24 rounded-full">
+                                            <img src={product.image} alt='' />
+                                        </div>
+                                    </div>
+                                </td>
                                 <td>{product.name}</td>
                                 <td>{product.name}</td>
                                 <td>{product.email}</td>
                                 <td>{product.Specialty}</td>
+                                <td>
+                                    <label onClick={() => setDeletingProduct(product)} htmlFor="confirmation-modal" className="btn btn-error">Delete</label>
+
+                                </td>
 
                             </tr>)
 
 
                         }
-                        {/* <tr>
-        <th>1</th>
-        <td>Cy Ganderton</td>
-        <td>Quality Control Specialist</td>
-        <td>Blue</td>
-      </tr> */}
+
 
                     </tbody>
                 </table>
             </div>
+            {
+                deletingProduct && <ConfirmationModal
+                    title={`Are you want to delete?`}
+                    message={`If you delete ${deletingProduct.name}.It cannot be undone`}
+                    successAction={handleDeleteProduct}
+                    successButtonName='Delete'
+                    modalData={deletingProduct}
+                    closeModal={closeModal}
+                >
+
+                </ConfirmationModal>
+            }
         </div>
     );
 };
