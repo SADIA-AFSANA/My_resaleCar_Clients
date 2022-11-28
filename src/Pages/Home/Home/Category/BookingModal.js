@@ -24,7 +24,7 @@ const BookingModal = ({ car, setCar, refetch }) => {
             location,
             price
         }
-        fetch('http://localhost:5000/bookings', {
+        fetch('https://resell-assignment12-server.vercel.app/bookings', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

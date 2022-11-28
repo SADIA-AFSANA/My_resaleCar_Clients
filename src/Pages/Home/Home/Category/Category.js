@@ -6,7 +6,7 @@ const Category = () => {
 
     useEffect(() => {
         // fetch('productsOptions')
-        fetch('http://localhost:5000/productsOptions')
+        fetch('https://resell-assignment12-server.vercel.app/productsOptions')
             .then(res => res.json())
             .then(data => setProductsOptions(data))
     }, [])

@@ -12,7 +12,7 @@ const Product = () => {
     const { data: productsOptions = [], refetch, isLoading } = useQuery({
         queryKey: ['productsOptions'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/productsOptions')
+            const res = await fetch('https://resell-assignment12-server.vercel.app/productsOptions')
             // const res = await fetch('productsOptions')
             const data = await res.json();
             return data
@@ -23,7 +23,7 @@ const Product = () => {
     }
 
     // useEffect(() => {
-    //     fetch('http://localhost:5000/productsOptions')
+    //     fetch('https://resell-assignment12-server.vercel.app/productsOptions')
     //         .then(res => res.json())
     //         .then(data => setProductsOptions(data))
     // }, [])
