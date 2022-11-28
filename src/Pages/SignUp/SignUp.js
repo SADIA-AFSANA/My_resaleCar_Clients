@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/AuthProvider';
 import toast, { Toaster } from 'react-hot-toast';
 import useToken from '../../hooks/usetoken';
+import SocialLogin from '../Shared/SocialLogin/SocialLogin';
 
 const SignUp = () => {
     const { createUser, updateUser } = useContext(AuthContext)
@@ -101,7 +102,8 @@ const SignUp = () => {
                     </form>
                     <p>Already have an account <Link className='btn btn-primary' to="/login">Login</Link></p>
                     <div className='divider'>OR</div>
-                    <button className='btn btn-secondary w-full'>CONTINUE WITH GOOGLE</button>
+
+                    <SocialLogin></SocialLogin>
                 </div>
             </div>
         </div>

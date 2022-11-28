@@ -6,7 +6,7 @@ const CheckoutForm = ({ booking }) => {
     const [clientSecret, setClientSecret] = useState("");
     const stripe = useStripe();
     const elements = useElements();
-    const { price, resalePrice, name, email } = booking;
+    const { price, resalePrice, name, email, _id } = booking;
 
     useEffect(() => {
         // Create PaymentIntent as soon as the page loads
@@ -57,7 +57,34 @@ const CheckoutForm = ({ booking }) => {
             },
         );
 
+        if (confirmError) {
+            setCardError(confirmError.message);
+            return;
+        }
+        if (paymentIntent.status === "succeeded") {
+            console.log('paymentIntent', paymentIntent);
+            const payment = {
+                price,
+                email,
+                bookingId: _id
+            }
+            fetch('http://localhost:5000/payments', {
+                method: "POST",
+                headers: {
+                    'content-type': 'application/json',
+                    authorization: `bearer ${localStorage.getItem('accessToken')}`
+                },
+                body: JSON.stringify(payment)
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    if (data.insertId) {
 
+                    }
+                })
+
+        }
     }
 
     return (
@@ -83,6 +110,7 @@ const CheckoutForm = ({ booking }) => {
                     className='btn btn-sm mt-4 btn-primary'
                     type="submit"
                     disabled={!stripe || !clientSecret}>
+
                     Pay
                 </button>
             </form>

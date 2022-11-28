@@ -5,6 +5,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/AuthProvider';
 import toast, { Toaster } from 'react-hot-toast';
 import useToken from '../../hooks/usetoken';
+import SocialLogin from '../Shared/SocialLogin/SocialLogin';
 
 const Login = () => {
     const { signIn } = useContext(AuthContext);
@@ -80,7 +81,7 @@ const Login = () => {
                 </form>
                 <p>New to Account <Link className='btn btn-primary' to="/signup">SIGN Up</Link></p>
                 <div className='divider'>OR</div>
-                <button className='btn btn-secondary w-full'>CONTINUE WITH GOOGLE</button>
+                <SocialLogin></SocialLogin>
             </div>
         </div>
     );

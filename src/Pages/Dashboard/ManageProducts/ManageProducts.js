@@ -60,14 +60,14 @@ const ManageProducts = () => {
                 <table className="table w-full">
 
                     <thead>
-                        <tr>
+                        <tr >
                             <th></th>
-                            <th>image</th>
+                            <th>userImage</th>
                             <th>Name</th>
-                            <th>price</th>
+                            <th></th>
                             <th>Email</th>
-                            <th>Specialty</th>
-                            <th>DELETE</th>
+
+                            <th>DELETE BTN</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -82,7 +82,7 @@ const ManageProducts = () => {
                                     </div>
                                 </td>
                                 <td>{product.name}</td>
-                                <td>{product.name}</td>
+                                <td>{product.price}</td>
                                 <td>{product.email}</td>
                                 <td>{product.Specialty}</td>
                                 <td>
