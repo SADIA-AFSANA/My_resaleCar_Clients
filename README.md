@@ -9,11 +9,11 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 Live Link :: https://resale-car.web.app
 
 ##
-github-client-Site::https://github.com/programming-hero-web-course-4/b612-used-products-resale-clients-side-SADIA-AFSANA
+github-client-Site::https://github.com/SADIA-AFSANA/My_resaleCar_Clients
 
 
 ##
-github-server-Site ::  https://github.com/programming-hero-web-course-4/b612-used-products-resale-server-side-SADIA-AFSANA
+github-server-Site :: https://github.com/SADIA-AFSANA/My_resaleCar_server
 
 ## ADMIN
 EMAIL ::  rehan@gmail.com

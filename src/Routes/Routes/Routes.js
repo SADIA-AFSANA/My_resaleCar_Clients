@@ -58,15 +58,15 @@ const router = createBrowserRouter([
             {
                 path: '/dashboard/allusers',
                 // element: <AllUsers></AllUsers>
-                element: <AdminRoute><AllUsers></AllUsers></AdminRoute>
+                element: <AllUsers></AllUsers>
             },
             {
                 path: '/dashboard/addproduct',
-                element: <AdminRoute><AddProduct></AddProduct></AdminRoute>
+                element: <AddProduct></AddProduct>
             },
             {
                 path: '/dashboard/managedproduct',
-                element: <AdminRoute><ManageProducts></ManageProducts></AdminRoute>
+                element: <ManageProducts></ManageProducts>
             },
             {
                 path: '/dashboard/payment/:id',
